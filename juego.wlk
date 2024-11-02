@@ -10,6 +10,9 @@ object juego {
 
     game.addVisual(jugador)
     jugador.controlar()
+
+    game.addVisual(enemigo)
+    enemigo.controlar()
   }
 
 }
