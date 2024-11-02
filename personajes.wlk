@@ -3,7 +3,7 @@ object jugador{
   method position() = position
   method image() = "Personaje.png"
 
-  method controlar_jugador(){
+  method controlar(){
     keyboard.left().onPressDo{self.moverIzq()}
     keyboard.right().onPressDo{self.moverDer()}
   }

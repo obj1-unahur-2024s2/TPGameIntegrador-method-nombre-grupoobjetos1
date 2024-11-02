@@ -9,7 +9,7 @@ object juego {
     game.boardGround("Background_forest.png")
 
     game.addVisual(jugador)
-    jugador.controlar_jugador()
+    jugador.controlar()
   }
 
 }
