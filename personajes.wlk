@@ -26,13 +26,15 @@ object enemigo{
   method position() = position
   var direccion = izquierda
   method image() = "skull.png"
-  
+  const burlas = ["Hasta mi abuela juega mejor","Mamita querida estos son nuestros progamadores","Loco tantas no podes fallar tanto","Esa estuvo cerca de darme"] 
+
   method controlar(){
     game.onTick(100,"Movimiento", {self.irYVolver()})
+    game.onTick(2000,"jajaj",{self.burlas()})
   }
   method burlas() {
-    const descansos = ["Hasta mi abuela juega mejor","Mamita querida estos son nuestros progamadores","Loco tantas no podes errar ","Esa estuvo cerca de darme"]
-    game.say(self,descansos.anyone())
+    var descan = burlas.anyOne()
+    game.say(self,descan)
   }
   method recibirImpacto() {
     vida = vida - 1 
