@@ -1,6 +1,6 @@
+import disparo.*
 import wollok.game.*
 import personajes.*
-
 object juego {
 
   method configurar(){
@@ -13,6 +13,7 @@ object juego {
 
     game.addVisual(enemigo)
     enemigo.controlar()
+    game.onCollideDo(enemigo,{fuego => fuego.llegoAlEnemigo(enemigo)})
   }
 
 }
