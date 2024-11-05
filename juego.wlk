@@ -13,7 +13,6 @@ object juego {
 
     game.addVisual(enemigo)
     enemigo.iniciar()
-    game.onCollideDo(enemigo,{fuego => fuego.llegoAlEnemigo(enemigo)})
   }
 
 }
