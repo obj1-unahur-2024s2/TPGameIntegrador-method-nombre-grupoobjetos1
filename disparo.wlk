@@ -1,14 +1,14 @@
 import personajes.*
 
 class Llama {
-    var position = jugador.position() 
+    var position = jugador.position().up(1) 
     method image() = "Fuego.png"
     method position() = position   
-    method arriba() {
+    method iniciar() {
         game.addVisualCharacter(self)
         game.onTick(200,"disparar arriba", {self.desplazarse()})
-        const sonido = game.sound("DisparoDeFuego1.mp3")
-        sonido.play()
+        game.sound("DisparoDeFuego1.mp3").play()
+        self.checkCollisions()
     }
     method desplazarse() {
         position = position.up(1)
@@ -16,6 +16,10 @@ class Llama {
     method llegoAlEnemigo(enemigo) {
         enemigo.recibirImpacto()
         game.removeVisual(self)
+    }
+
+    method checkCollisions(){
+        game.onCollideDo(self, {enemigo => enemigo.recibirImpacto()})
     }
 }
 object carga {

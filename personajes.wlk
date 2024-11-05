@@ -13,7 +13,7 @@ object jugador{
 
   method disparar() {
       const llama = new Llama()
-      llama.arriba()
+      llama.iniciar()
     }
   
   method moverIzq() { position = position.left(1) }
@@ -21,7 +21,7 @@ object jugador{
 }
 
 object enemigo{
-  var vida = 2
+  var vida = 3
   var position = game.at(6, 12)
   method position() = position
   var direccion = izquierda
@@ -31,23 +31,16 @@ object enemigo{
   method iniciar(){
     self.controlar()
     self.burlarse()
-    self.checkColisiones()
   }
 
+  method estaVivo() = vida > 0
+
   method controlar(){
-    game.onTick(100,"movimiento", {self.irYVolver()})
+      game.onTick(100,"movimiento", {self.irYVolver()})
   }
 
   method burlarse(){
-    game.onTick(2000,"burlas",{game.say(self, self.burlaRandom())})
-  }
-
-  method burlaRandom() {
-    return burlas.anyOne()
-  }
-
-  method checkColisiones() {
-    game.onCollideDo(self,{fuego => fuego.llegoAlEnemigo(self)})
+    game.onTick(2000,"burlas",{game.say(self, burlas.anyOne())})
   }
 
   method recibirImpacto() {

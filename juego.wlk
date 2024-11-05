@@ -14,5 +14,4 @@ object juego {
     game.addVisual(enemigo)
     enemigo.iniciar()
   }
-
 }
