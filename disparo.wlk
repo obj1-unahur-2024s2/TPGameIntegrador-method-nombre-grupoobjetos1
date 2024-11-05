@@ -7,7 +7,7 @@ class Llama {
     method arriba() {
         game.addVisualCharacter(self)
         game.onTick(200,"disparar arriba", {self.desplazarse()})
-        var sonido = game.sound("DisparoDeFuego1.mp3")
+        const sonido = game.sound("DisparoDeFuego1.mp3")
         sonido.play()
     }
     method desplazarse() {

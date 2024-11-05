@@ -12,7 +12,7 @@ object juego {
     jugador.controlar()
 
     game.addVisual(enemigo)
-    enemigo.controlar()
+    enemigo.iniciar()
     game.onCollideDo(enemigo,{fuego => fuego.llegoAlEnemigo(enemigo)})
   }
 

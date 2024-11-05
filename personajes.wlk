@@ -12,7 +12,7 @@ object jugador{
   }
 
   method disparar() {
-      const llama =new Llama()
+      const llama = new Llama()
       llama.arriba()
     }
   
@@ -28,18 +28,25 @@ object enemigo{
   method image() = "skull.png"
   const burlas = ["Hasta mi abuela juega mejor","Mamita querida estos son nuestros progamadores","Loco tantas no podes fallar tanto","Esa estuvo cerca de darme"] 
 
+  method iniciar(){
+    self.controlar()
+    self.burlarse()
+  }
+
   method controlar(){
-    game.onTick(100,"Movimiento", {self.irYVolver()})
-    game.onTick(2000,"jajaj",{self.burlas()})
+    game.onTick(100,"movimiento", {self.irYVolver()})
   }
-  method burlas() {
-    var descan = burlas.anyOne()
-    game.say(self,descan)
+
+  method burlarse(){
+    game.onTick(2000,"burlas",{game.say(self, self.burlaRandom())})
   }
+  method burlaRandom() {
+    return burlas.anyOne()
+  }
+
   method recibirImpacto() {
     vida = vida - 1 
     if( vida == 0){
-      
       game.stop()
     }
     else{
