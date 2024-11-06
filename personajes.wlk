@@ -12,9 +12,12 @@ object jugador{
   }
 
   method disparar() {
-      const llama = new Llama()
+      const llama = new Llama(personajeDisparador = self)
       llama.iniciar()
     }
+  method direccion(pos){
+    return pos.up(1)
+  } 
   
   method moverIzq() { position = position.left(1) }
   method moverDer() { position = position.right(1) }
@@ -46,6 +49,7 @@ object enemigo{
   method recibirImpacto() {
     vida -= 1 
     game.say(self, "me quedan " + vida.max(0).toString() + " vidas")
+    game.removeVisual(Llama)
   } 
 
   method irYVolver() {

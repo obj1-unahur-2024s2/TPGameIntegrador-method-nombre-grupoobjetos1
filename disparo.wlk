@@ -2,6 +2,7 @@ import personajes.*
 
 class Llama {
     var position = jugador.position().up(1) 
+    var personajeDisparador  
     method image() = "Fuego.png"
     method position() = position   
     method iniciar() {
@@ -11,13 +12,12 @@ class Llama {
         self.checkCollisions()
     }
     method desplazarse() {
-        position = position.up(1)
+        position = personajeDisparador.direccion(position)
     }
     method llegoAlEnemigo(enemigo) {
         enemigo.recibirImpacto()
         game.removeVisual(self)
     }
-
     method checkCollisions(){
         game.onCollideDo(self, {enemigo => enemigo.recibirImpacto()})
     }
