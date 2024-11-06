@@ -1,38 +1,44 @@
 import personajes.*
 
 class Llama {
-    var position = jugador.position().up(1) 
-    var personajeDisparador  
+    const personajeDisparador  
+    var position = personajeDisparador.bolaDeFuego()
     method image() = "Fuego.png"
     method position() = position   
     method iniciar() {
         game.addVisualCharacter(self)
-        game.onTick(200,"disparar arriba", {self.desplazarse()})
+        game.onTick(200,personajeDisparador.nombreEvento() + position.toString() , {self.desplazarse()})
         game.sound("DisparoDeFuego1.mp3").play()
         self.checkCollisions()
     }
     method desplazarse() {
-        position = personajeDisparador.direccion(position)
-    }
-    method llegoAlEnemigo(enemigo) {
-        enemigo.recibirImpacto()
-        game.removeVisual(self)
+        if(personajeDisparador.posicionFinal() == position.y()){
+            game.removeVisual(self)
+            game.removeTickEvent(personajeDisparador.nombreEvento() + position.toString())
+        }
+        else{
+            position = personajeDisparador.direccion(position)
+        }
     }
     method checkCollisions(){
-        game.onCollideDo(self, {enemigo => enemigo.recibirImpacto()})
+        game.onCollideDo(self, {enemigo => enemigo.recibirImpacto(self)})
+    }
+    method recibirImpacto(algo) {
+      game.removeVisual(self)
+      game.removeVisual(algo)
     }
 }
 object carga {
     var puedoDispar = true 
-    var carga = [1,2,3,4] 
+    const carga = [1,2,3,4] 
     method cambiarEstado() {
-        if(carga.first() == 4){
+        const tiempo = carga
+        if(tiempo.first() == 4){
         puedoDispar = true
-        carga = [1,2,3,4] 
         }
         else{
         puedoDispar = false
-        carga.remove(carga.first())
+        tiempo.remove(tiempo.first())
         }
     }
     method puedoDispar() = puedoDispar 
