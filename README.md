@@ -1,25 +1,13 @@
-# Nombre del juego (<- borrar y completar)
-
-## Equipo de desarrollo
-
-- Alguien
-- Persona
-- etc.
-
-## Capturas
-
-(agregar)
-
-## Reglas de Juego / Instrucciones
-
-(Escribirlas)
+# Instrucciones
+- Se mueve con las flechitas izquierda y derecha
+- Se dispara con la flecha hacia arriba
+- El enemigo tiene 3 vidas
 
 
 ## Otros
 
-- Curso/Facultad
-- Versión de wollok
-- Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado
+- Unahur
+- Una vez terminado, no tenemos problemas en que el repositorio sea público
 
 ## TO-DO
 - Hacer que el enemigo dispare tambien (se puede reutilizar la clase "Llama" cambiandola para que tome como parametro quien la esta lanzando y la direccion a la que debe moverse)
