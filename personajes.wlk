@@ -2,12 +2,13 @@ import disparo.*
 
 object jugador{
   var position = game.at(6, 1)
-  var puedoDispara = true
+  var vidas = 3
+  var puedeDisparar = true
   method position() = position
   method image() = "Personaje"+self.recargaNombre()+".png"
-  method bolaDeFuego() = position.up(1) 
+  method posInicialDisparo() = position.up(1) 
 
-  method recargaNombre() = if(puedoDispara)""else "Recarga"   
+  method recargaNombre() = if(puedeDisparar)""else "Recarga"   
 
   method controlar(){
     keyboard.left().onPressDo{self.moverIzq()}
@@ -17,24 +18,22 @@ object jugador{
  
   method disparar() {
     const llama = new Llama(personajeDisparador = self)
-    if(puedoDispara){
+    if(puedeDisparar){
       llama.iniciar()
-      self.cambiarEstadoDisparo()
+      puedeDisparar = false
       self.recarga()  
     }
     }
   method recarga() {
-    game.schedule(1000,{self.cambiarEstadoDisparo()})
+    game.schedule(1000,{puedeDisparar = true})
   }
   method recibirImpacto(llama) {
-    game.stop()
+    vidas = 0.max(vidas - 1)
+    game.say(self, "Tengo " + vidas.toString() + " vidas")
   }
-  method cambiarEstadoDisparo() {
-    puedoDispara = !puedoDispara
-  }
-   method direccion(pos){
+   method direccionDisparo(pos){
     return pos.up(1)
-  }
+ }
   method posicionFinal() = 12  
   method nombreEvento() = "disparar Aribba"
   method moverIzq() { position = position.left(1) }
@@ -47,6 +46,7 @@ object enemigo{
   method position() = position
   var direccion = izquierda
   method image() = "skull"+direccion.toString()+".png"
+  method posInicialDisparo() = position.down(1) 
   method iniciar(){
     self.controlar()
     self.dispararBolaFuego()
@@ -89,14 +89,13 @@ object enemigo{
   method mover(dir) {
     position = dir.position(self)
   }
-  method direccion(pos){
+  method direccionDisparo(pos){
     return pos.down(1)
   } 
   method disparar() {
     const llama = new Llama(personajeDisparador = self)
     llama.iniciar()
   }
-  method bolaDeFuego() = position.down(1) 
   method posicionFinal() = 1 
   method nombreEvento() = "disparar Abajo" 
 }

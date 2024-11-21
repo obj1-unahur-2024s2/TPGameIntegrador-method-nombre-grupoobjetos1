@@ -2,7 +2,7 @@ import personajes.*
 
 class Llama {
     const personajeDisparador  
-    var position = personajeDisparador.bolaDeFuego()
+    var position = personajeDisparador.posInicialDisparo()
     method image() = "Fuego.png"
     method position() = position   
     method iniciar() {
@@ -12,12 +12,12 @@ class Llama {
         self.checkCollisions()
     }
     method desplazarse() {
-        if(personajeDisparador.posicionFinal() == position.y()){
+        if(self.estaFueraDeLimites()){
             game.removeVisual(self)
             game.removeTickEvent(personajeDisparador.nombreEvento() + position.toString())
         }
         else{
-            position = personajeDisparador.direccion(position)
+            position = personajeDisparador.direccionDisparo(position)
         }
     }
     method checkCollisions(){
@@ -27,5 +27,7 @@ class Llama {
       game.removeVisual(self)
       game.removeVisual(algo)
     }
+
+    method estaFueraDeLimites() = position.y() >= game.height() or position.y() <= 0
 }
 
