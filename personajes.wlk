@@ -2,24 +2,35 @@ import disparo.*
 
 object jugador{
   var position = game.at(6, 1)
+  var puedoDispara = true
   method position() = position
-  method image() = "Personaje.png"
+  method image() = "Personaje"+self.recargaNombre()+".png"
   method bolaDeFuego() = position.up(1) 
+
+  method recargaNombre() = if(puedoDispara)""else "Recarga"   
+
   method controlar(){
     keyboard.left().onPressDo{self.moverIzq()}
     keyboard.right().onPressDo{self.moverDer()}
     keyboard.up().onPressDo{self.disparar()}
   }
-  method recargarEnergia() {
-    game.onTick(400,"recarga",{carga.cambiarEstado()})
-  }
+ 
   method disparar() {
     const llama = new Llama(personajeDisparador = self)
-    llama.iniciar()
-
+    if(puedoDispara){
+      llama.iniciar()
+      self.cambiarEstadoDisparo()
+      self.recarga()  
+    }
+    }
+  method recarga() {
+    game.schedule(1000,{self.cambiarEstadoDisparo()})
   }
   method recibirImpacto(llama) {
     game.stop()
+  }
+  method cambiarEstadoDisparo() {
+    puedoDispara = !puedoDispara
   }
    method direccion(pos){
     return pos.up(1)
@@ -35,11 +46,9 @@ object enemigo{
   var position = game.at(6, 12)
   method position() = position
   var direccion = izquierda
-  method image() = "skull.png"
-  const burlas = ["Hasta mi abuela juega mejor","Mamita querida estos son nuestros progamadores","Loco no podes fallar tanto","Esa estuvo cerca de darme"] 
+  method image() = "skull"+direccion.toString()+".png"
   method iniciar(){
     self.controlar()
-    self.burlarse()
     self.dispararBolaFuego()
   }
   method dispararBolaFuego() {
@@ -51,14 +60,19 @@ object enemigo{
     game.onTick((1..500).anyOne(),"movimiento",{self.irYVolver()})
   }
 
-  method burlarse(){
-    game.onTick(2000,"burlas",{game.say(self, burlas.anyOne())})
-  }
-
   method recibirImpacto(llama) {
     vida -= 1 
-    game.say(self, "me quedan " + vida.max(0).toString() + " vidas")
-    game.removeVisual(llama)
+    if(vida > 0){
+      game.say(self, "me quedan " + vida.toString() + " vidas")
+      game.removeVisual(llama)
+    }
+    else{
+      const exp = new Explosion(pos = self.position()) 
+      exp.aparecer()
+      game.removeVisual(self)
+      exp.desaparecer()
+    }
+
   } 
 
   method irYVolver() {
@@ -85,6 +99,17 @@ object enemigo{
   method bolaDeFuego() = position.down(1) 
   method posicionFinal() = 1 
   method nombreEvento() = "disparar Abajo" 
+}
+class Explosion {
+  const pos
+  method image() = "algo.png"
+  method position() = pos
+  method aparecer() {
+    game.addVisual(self)
+  }
+  method desaparecer() {
+    game.schedule(500, {game.removeVisual(self)})
+  }
 }
 object derecha{
   method opuesto() = izquierda

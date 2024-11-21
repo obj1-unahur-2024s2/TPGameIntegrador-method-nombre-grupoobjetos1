@@ -28,18 +28,4 @@ class Llama {
       game.removeVisual(algo)
     }
 }
-object carga {
-    var puedoDispar = true 
-    const carga = [1,2,3,4] 
-    method cambiarEstado() {
-        const tiempo = carga
-        if(tiempo.first() == 4){
-        puedoDispar = true
-        }
-        else{
-        puedoDispar = false
-        tiempo.remove(tiempo.first())
-        }
-    }
-    method puedoDispar() = puedoDispar 
-}
+

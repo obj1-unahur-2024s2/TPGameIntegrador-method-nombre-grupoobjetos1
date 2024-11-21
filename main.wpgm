@@ -4,4 +4,4 @@ import juego.*
 program Main {
   juego.configurar()
   game.start()
-}
+} 
