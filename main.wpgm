@@ -18,7 +18,9 @@ object nivel1 {
     game.addVisual(jugador)
     jugador.controlar()
 
-    enemigo.iniciar()
+    const enemigo1 = new Enemigo(id = 1, position = game.at(6, 12), vida = 3, velocidad = 300)
+    enemigo1.iniciar()
+
     game.boardGround("Background_forest.png")
   }
 }
