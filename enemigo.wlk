@@ -21,7 +21,7 @@ object enemigo{
     game.onTick((1000),"disparar abajo",{self.disparar()})
   }
   method controlar(){
-    game.onTick((1..500).anyOne(),"movimiento",{self.irYVolver()})
+    game.onTick((100..500).anyOne(),"movimiento",{self.irYVolver()})
   }
 
   method recibirImpacto(llama) {
@@ -34,7 +34,7 @@ object enemigo{
       exp.iniciar()
       game.removeVisual(self)
       game.removeTickEvent("disparar abajo")
-      game.schedule(2001, {self.iniciar()}) 
+      game.removeTickEvent("movimiento")
     }
   } 
   method irYVolver() {
