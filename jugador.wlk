@@ -7,6 +7,8 @@ object jugador{
   var puedeDisparar = true
   var llamasDisparadas = 0
   var cadenciaDisparo = 500
+  const colorFuego = "rojo"
+
   method position() = position
   method image() = "Personaje"+self.recargaNombre()+".png"
   method posInicialDisparo() = position.up(1) 
@@ -22,7 +24,7 @@ object jugador{
   method disparar() {
     if(puedeDisparar){
       llamasDisparadas += 1
-      const llama = new Llama(personajeDisparador = self, idLlama = llamasDisparadas)
+      const llama = new Llama(personajeDisparador = self, idLlama = llamasDisparadas,color = colorFuego)
       llama.iniciar()
       puedeDisparar = false
       self.recarga()  

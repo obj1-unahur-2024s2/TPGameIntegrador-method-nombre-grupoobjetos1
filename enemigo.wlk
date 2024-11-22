@@ -6,9 +6,11 @@ object enemigo{
   var position = game.at(6, 12)
   var llamasDisparadas = 0
   var direccion = izquierda
+  var herido = "" 
+  const colorFuego = "violeta"
 
   method position() = position
-  method image() = "skull"+direccion.toString()+".png"
+  method image() = "skull"+direccion.toString()+herido.toString()+".png"
   method posInicialDisparo() = position.down(1) 
 
   method iniciar(){
@@ -24,9 +26,14 @@ object enemigo{
     game.onTick((1..500).anyOne(),"movimiento",{self.irYVolver()})
   }
 
+  method cambiarImagen() {
+    herido="herido"
+    game.schedule(200, {herido = ""})
+  } 
   method recibirImpacto(llama) {
     vida -= 1 
     if(vida > 0){
+      self.cambiarImagen()
       game.say(self, "me quedan " + vida.toString() + " vidas")
     }
     else{
@@ -56,7 +63,7 @@ object enemigo{
   } 
   method disparar() {
     llamasDisparadas += 10
-    const llama = new Llama(personajeDisparador = self, idLlama = llamasDisparadas)
+    const llama = new Llama(personajeDisparador = self, idLlama = llamasDisparadas,color=colorFuego)
     llama.iniciar()
   }
   method posicionFinal() = 1 
