@@ -14,8 +14,8 @@ object jugador{
   method recargaNombre() = if(puedeDisparar)""else "Recarga"   
 
   method controlar(){
-    keyboard.left().onPressDo{self.moverIzq()}
-    keyboard.right().onPressDo{self.moverDer()}
+    keyboard.left().onPressDo{if(self.position().x() != 0){self.moverIzq()}}
+    keyboard.right().onPressDo{if(self.position().x() != 12){self.moverDer()}}
     keyboard.up().onPressDo{self.disparar()}
   }
  

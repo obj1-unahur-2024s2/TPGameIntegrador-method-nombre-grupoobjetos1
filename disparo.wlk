@@ -26,7 +26,6 @@ class Llama {
       game.removeVisual(self)
       game.removeTickEvent("llama"+idLlama.toString())
     }
-
     method estaFueraDeLimites() = position.y() >= game.height() or position.y() <= 0
 }
 

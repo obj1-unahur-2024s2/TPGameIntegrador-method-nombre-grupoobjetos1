@@ -2,7 +2,7 @@ import jugador.*
 import disparo.*
 
 object enemigo{
-  var vida = 3
+  var vida = 0
   var position = game.at(6, 12)
   var llamasDisparadas = 0
   var direccion = izquierda
@@ -12,16 +12,14 @@ object enemigo{
   method posInicialDisparo() = position.down(1) 
 
   method iniciar(){
+    vida = vida + 3
+    game.addVisual(self)
     self.controlar()
     self.dispararBolaFuego()
   }
-
   method dispararBolaFuego() {
     game.onTick((1000),"disparar abajo",{self.disparar()})
   }
-
-  method estaVivo() = vida > 0
-
   method controlar(){
     game.onTick((1..500).anyOne(),"movimiento",{self.irYVolver()})
   }
@@ -36,10 +34,9 @@ object enemigo{
       exp.iniciar()
       game.removeVisual(self)
       game.removeTickEvent("disparar abajo")
+      game.schedule(2001, {self.iniciar()}) 
     }
-
   } 
-
   method irYVolver() {
     self.controlarDireccion()
     self.mover(direccion)
