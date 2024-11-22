@@ -1,7 +1,25 @@
+import disparo.*
+import jugador.*
+import enemigo.*
 import wollok.game.*
-import juego.*
 
 program Main {
-  juego.configurar()
+  game.width(13)
+  game.height(13)
+
+  nivel1.iniciar()
+
   game.start()
 } 
+
+
+object nivel1 {
+  method iniciar() {
+    game.addVisual(jugador)
+    jugador.controlar()
+
+    game.addVisual(enemigo)
+    enemigo.iniciar()
+    game.boardGround("Background_forest.png")
+  }
+}
