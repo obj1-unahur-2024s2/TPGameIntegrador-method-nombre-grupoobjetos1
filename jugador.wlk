@@ -1,9 +1,10 @@
+import main.*
 import disparo.*
 import enemigo.*
 
 object jugador{
   var position = game.at(6, 1)
-  var vidas = 3
+  var property vidas = 3
   var puedeDisparar = true
   const cadenciaDisparo = 1000
   method velocidadDisparo() = 100
@@ -36,6 +37,7 @@ object jugador{
   method recibirImpacto(argumentoNoUtilizado) {
     vidas = 0.max(vidas - 1)
     game.say(self, "Tengo " + vidas.toString() + " vidas")
+    main.levelManager.checkVidasJugador()
   }
    method direccionDisparo(){
     return 1

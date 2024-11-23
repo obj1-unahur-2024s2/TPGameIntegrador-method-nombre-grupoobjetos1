@@ -8,21 +8,22 @@ program Main {
   game.height(13)
 
   levelManager.nivelActual().iniciar()
+  game.boardGround(levelManager.nivelActual().background())
 
   game.start()
 } 
 
 object menuInicio{
+  method background() = "menu_inicio_placeholder.png"
   var property haIniciado = false
   method iniciar() {
-    self.configurar()
+    game.boardGround(self.background())
+    pantallaGameOver.haIniciado(false)
+    levelManager.nivelActual(self)
     self.esperarInput()
   }
   method esperarInput() {
     keyboard.space().onPressDo({self.iniciarJuego()})
-  }
-  method configurar() {
-    game.boardGround("menu_inicio_placeholder.png")
   }
   method iniciarJuego() {
     if (not haIniciado){
@@ -39,6 +40,24 @@ object pantallaFinal{
   }
 }
 
+object pantallaGameOver{
+  method background() = "menu_gameOver_placeholder.png"
+  var property haIniciado = false
+  method iniciar() {
+    levelManager.nivelActual(self)
+    game.clear()
+    self.esperarInput()
+    game.boardGround(self.background())
+  }
+  method esperarInput(){
+    if (not haIniciado){
+      haIniciado = true
+      menuInicio.haIniciado(false)
+      keyboard.space().onPressDo({menuInicio.iniciar()})
+    }
+  }
+}
+
 object levelManager {
   var property nivelActual = menuInicio
   var property enemigosVivos = 0
@@ -52,11 +71,19 @@ object levelManager {
       game.schedule(3000, {nivelActual.siguiente().iniciar()})
     }
   }
+  method checkVidasJugador(){
+    if (jugador.vidas() <= 0){
+      game.schedule(1000, {pantallaGameOver.iniciar()})
+    }
+  }
 }
 
 object nivel1 {
   method siguiente() = nivel2
+  method background() = "Background_forest.png"
   method iniciar() {
+    game.boardGround(self.background())
+    jugador.vidas(3)
     levelManager.nivelActual(self)
     game.addVisual(jugador)
     jugador.controlar()
@@ -65,14 +92,14 @@ object nivel1 {
     enemigo1.iniciar()
 
     levelManager.enemigosVivos(1)
-
-    game.boardGround("Background_forest.png")
   }
 }
 
 object nivel2 {
+  method background() = "Background_forest.png"
   method siguiente() = nivel3
   method iniciar() {
+    game.boardGround(self.background())
     levelManager.nivelActual(self)
 
     const enemigo2 = new Enemigo(id = 825, position = game.at(0, 12), vida = 3, velocidad = 300)
@@ -83,8 +110,10 @@ object nivel2 {
 }
 
 object nivel3 {
+  method background() = "Background_forest.png"
   method siguiente() = pantallaFinal
   method iniciar() {
+    game.boardGround(self.background())
     levelManager.nivelActual(self)
 
     const enemigo4 = new Enemigo(id = 333, position = game.at(0, 12), vida = 3, velocidad = 300)
