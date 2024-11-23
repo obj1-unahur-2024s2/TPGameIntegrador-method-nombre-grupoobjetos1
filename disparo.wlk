@@ -3,7 +3,8 @@ class Llama {
     const idLlama
     method idLlama() = idLlama
     var position = personajeDisparador.posInicialDisparo()
-    method image() = "Fuego.png"
+    const color
+    method image() = "Fuego"+color.toString()+".png"
     method position() = position   
     method iniciar() {
         game.addVisual(self)

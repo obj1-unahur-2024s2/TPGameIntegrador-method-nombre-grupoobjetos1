@@ -8,6 +8,7 @@ object jugador{
   var llamasDisparadas = 0
   const cadenciaDisparo = 1000
   method velocidadDisparo() = 100
+  const colorFuego = "rojo"
 
   method objetivo() = "enemigo"
   method position() = position
@@ -25,7 +26,7 @@ object jugador{
   method disparar() {
     if(puedeDisparar){
       llamasDisparadas += 1
-      const llama = new Llama(personajeDisparador = self, idLlama = llamasDisparadas)
+      const llama = new Llama(personajeDisparador = self, idLlama = llamasDisparadas,color = colorFuego)
       llama.iniciar()
       puedeDisparar = false
       self.recarga()  
