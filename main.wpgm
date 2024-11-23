@@ -7,7 +7,7 @@ program Main {
   game.width(13)
   game.height(13)
 
-  nivel1.iniciar()
+  nivel2.iniciar()
 
   game.start()
 } 
@@ -18,8 +18,38 @@ object nivel1 {
     game.addVisual(jugador)
     jugador.controlar()
 
-    const enemigo1 = new Enemigo(id = 1, position = game.at(6, 12), vida = 3, velocidad = 300)
+    const enemigo1 = new Enemigo(id = 1, position = game.at(6, 12), vida = 3, velocidad = 500)
     enemigo1.iniciar()
+
+    game.boardGround("Background_forest.png")
+  }
+}
+
+object nivel2 {
+  method iniciar() {
+    game.addVisual(jugador)
+    jugador.controlar()
+
+    const enemigo2 = new Enemigo(id = 1, position = game.at(6, 12), vida = 3, velocidad = 300)
+    enemigo2.iniciar()
+    const enemigo3 = new Enemigo(id = 10, position = game.at(6, 11), vida = 3, velocidad = 200)
+    enemigo3.iniciar()
+
+    game.boardGround("Background_forest.png")
+  }
+}
+
+object nivel3 {
+  method iniciar() {
+    game.addVisual(jugador)
+    jugador.controlar()
+
+    const enemigo4 = new Enemigo(id = 100, position = game.at(6, 12), vida = 3, velocidad = 100)
+    enemigo4.iniciar()
+    const enemigo5 = new Enemigo(id = 1000, position = game.at(6, 11), vida = 3, velocidad = 200)
+    enemigo5.iniciar()
+    const enemigo6 = new Enemigo(id = 10000, position = game.at(6, 10), vida = 3, velocidad = 300)
+    enemigo6.iniciar()
 
     game.boardGround("Background_forest.png")
   }

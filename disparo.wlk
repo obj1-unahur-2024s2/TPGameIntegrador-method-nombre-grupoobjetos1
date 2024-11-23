@@ -7,7 +7,7 @@ class Llama {
     method position() = position   
     method iniciar() {
         game.addVisual(self)
-        game.onTick(200, "llama"+ self.idLlama().toString(), {self.desplazarse()})
+        game.onTick(200, "llama"+idLlama.toString(), {self.desplazarse()})
         game.sound("DisparoDeFuego1.mp3").play()
         self.checkCollisions()
     }

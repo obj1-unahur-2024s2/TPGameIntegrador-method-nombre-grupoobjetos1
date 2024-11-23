@@ -57,8 +57,8 @@ class Enemigo{
     return -1
   } 
   method disparar() {
-    llamasDisparadas += 10
-    const llama = new Llama(personajeDisparador = self, idLlama = llamasDisparadas)
+    llamasDisparadas += 1
+    const llama = new Llama(personajeDisparador = self, idLlama = id + llamasDisparadas)
     llama.iniciar()
   }
   method posicionFinal() = 1 
