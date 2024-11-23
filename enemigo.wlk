@@ -6,6 +6,7 @@ class Enemigo{
   const id
   var position
   const velocidad
+  const cadenciaDisparo = 1000
 
   var llamasDisparadas = 0
   var direccion = izquierda
@@ -13,6 +14,7 @@ class Enemigo{
   method position() = position
   method image() = "skull"+direccion.toString()+".png"
   method posInicialDisparo() = position.down(1) 
+  method objetivo() = "jugador"
 
   method iniciar(){
     game.addVisual(self)
@@ -20,23 +22,25 @@ class Enemigo{
     self.dispararBolaFuego()
   }
   method dispararBolaFuego() {
-    game.onTick((1000),"disparar abajo"+id.toString(),{self.disparar()})
+    game.onTick((cadenciaDisparo),"disparar abajo"+id.toString(),{self.disparar()})
   }
   method controlar(){
     game.onTick(velocidad,"movimiento"+id.toString(),{self.irYVolver()})
   }
 
-  method recibirImpacto(llama) {
-    vida -= 1 
-    if(vida > 0){
-      game.say(self, "me quedan " + vida.toString() + " vidas")
-    }
-    else{
-      const exp = new Explosion(pos = self.position()) 
-      exp.iniciar()
-      game.removeVisual(self)
-      game.removeTickEvent("disparar abajo"+id.toString())
-      game.removeTickEvent("movimiento"+id.toString())
+  method recibirImpacto(objetivoPersonajeDisparador) {
+    if (objetivoPersonajeDisparador == "enemigo"){
+      vida -= 1 
+      if(vida > 0){
+        game.say(self, "me quedan " + vida.toString() + " vidas")
+      }
+      else{
+        const exp = new Explosion(pos = self.position()) 
+        exp.iniciar()
+        game.removeVisual(self)
+        game.removeTickEvent("disparar abajo"+id.toString())
+        game.removeTickEvent("movimiento"+id.toString())
+      }
     }
   } 
   method irYVolver() {
@@ -58,7 +62,7 @@ class Enemigo{
   } 
   method disparar() {
     llamasDisparadas += 1
-    const llama = new Llama(personajeDisparador = self, idLlama = id + llamasDisparadas)
+    const llama = new Llama(personajeDisparador = self, idLlama = id * llamasDisparadas)
     llama.iniciar()
   }
   method posicionFinal() = 1 

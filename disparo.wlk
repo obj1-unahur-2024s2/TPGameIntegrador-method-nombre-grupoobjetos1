@@ -20,9 +20,9 @@ class Llama {
         }
     }
     method checkCollisions(){
-        game.onCollideDo(self, {enemigo => enemigo.recibirImpacto(self)})
+        game.onCollideDo(self, {enemigo => enemigo.recibirImpacto(personajeDisparador.objetivo())})
     }
-    method recibirImpacto(algo) {
+    method recibirImpacto(argumentoNoUtilizado) {
       game.removeVisual(self)
       game.removeTickEvent("llama"+idLlama.toString())
     }

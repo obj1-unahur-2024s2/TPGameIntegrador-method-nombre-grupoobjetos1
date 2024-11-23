@@ -6,7 +6,8 @@ object jugador{
   var vidas = 3
   var puedeDisparar = true
   var llamasDisparadas = 0
-  var cadenciaDisparo = 500
+  const cadenciaDisparo = 1000
+  method objetivo() = "enemigo"
   method position() = position
   method image() = "Personaje"+self.recargaNombre()+".png"
   method posInicialDisparo() = position.up(1) 
@@ -31,7 +32,7 @@ object jugador{
   method recarga() {
     game.schedule(cadenciaDisparo,{puedeDisparar = true})
   }
-  method recibirImpacto(llama) {
+  method recibirImpacto(argumentoNoUtilizado) {
     vidas = 0.max(vidas - 1)
     game.say(self, "Tengo " + vidas.toString() + " vidas")
   }

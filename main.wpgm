@@ -30,9 +30,9 @@ object nivel2 {
     game.addVisual(jugador)
     jugador.controlar()
 
-    const enemigo2 = new Enemigo(id = 1, position = game.at(6, 12), vida = 3, velocidad = 300)
+    const enemigo2 = new Enemigo(id = 825, position = game.at(6, 12), vida = 3, velocidad = 300)
     enemigo2.iniciar()
-    const enemigo3 = new Enemigo(id = 10, position = game.at(6, 11), vida = 3, velocidad = 200)
+    const enemigo3 = new Enemigo(id = 3, position = game.at(6, 11), vida = 3, velocidad = 200)
     enemigo3.iniciar()
 
     game.boardGround("Background_forest.png")
