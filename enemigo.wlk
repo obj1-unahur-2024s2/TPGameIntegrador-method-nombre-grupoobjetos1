@@ -6,7 +6,8 @@ class Enemigo{
   const id
   var position
   const velocidad
-  const cadenciaDisparo = 1000
+  const cadenciaDisparo = 2000
+  method velocidadDisparo() = 200
 
   var llamasDisparadas = 0
   var direccion = izquierda

@@ -7,6 +7,8 @@ object jugador{
   var puedeDisparar = true
   var llamasDisparadas = 0
   const cadenciaDisparo = 1000
+  method velocidadDisparo() = 100
+
   method objetivo() = "enemigo"
   method position() = position
   method image() = "Personaje"+self.recargaNombre()+".png"

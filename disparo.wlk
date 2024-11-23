@@ -7,7 +7,7 @@ class Llama {
     method position() = position   
     method iniciar() {
         game.addVisual(self)
-        game.onTick(200, "llama"+idLlama.toString(), {self.desplazarse()})
+        game.onTick(personajeDisparador.velocidadDisparo(), "llama"+idLlama.toString(), {self.desplazarse()})
         game.sound("DisparoDeFuego1.mp3").play()
         self.checkCollisions()
     }
@@ -23,8 +23,8 @@ class Llama {
         game.onCollideDo(self, {enemigo => enemigo.recibirImpacto(personajeDisparador.objetivo())})
     }
     method recibirImpacto(argumentoNoUtilizado) {
-      game.removeVisual(self)
-      game.removeTickEvent("llama"+idLlama.toString())
+        game.removeTickEvent("llama"+idLlama.toString())
+        game.removeVisual(self)
     }
     method estaFueraDeLimites() = position.y() >= game.height() or position.y() <= 0
 }
