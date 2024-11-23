@@ -7,13 +7,40 @@ program Main {
   game.width(13)
   game.height(13)
 
-  nivel1.iniciar()
+  levelManager.nivelActual().iniciar()
 
   game.start()
 } 
 
+object menuInicio{
+  var property haIniciado = false
+  method iniciar() {
+    self.configurar()
+    self.esperarInput()
+  }
+  method esperarInput() {
+    keyboard.space().onPressDo({self.iniciarJuego()})
+  }
+  method configurar() {
+    game.boardGround("menu_inicio_placeholder.png")
+  }
+  method iniciarJuego() {
+    if (not haIniciado){
+      haIniciado = true
+      nivel1.iniciar()
+    }
+  }
+
+}
+
+object pantallaFinal{
+  method iniciar() {
+    game.say(jugador, "Ganaste!")
+  }
+}
+
 object levelManager {
-  var property nivelActual = nivel1
+  var property nivelActual = menuInicio
   var property enemigosVivos = 0
   method eliminarEnemigoDeContador() {
     enemigosVivos -= 1
@@ -67,11 +94,5 @@ object nivel3 {
     enemigo5.iniciar()
 
     levelManager.enemigosVivos(2)
-  }
-}
-
-object pantallaFinal{
-  method iniciar() {
-    game.say(jugador, "Ganaste!")
   }
 }

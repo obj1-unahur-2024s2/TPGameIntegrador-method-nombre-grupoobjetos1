@@ -24,7 +24,7 @@ object jugador{
  
   method disparar() {
     if(puedeDisparar){
-      const llama = new Llama(personajeDisparador = self, idLlama = (0..10000).anyOne() ,color = colorFuego)
+      const llama = new Llama(personajeDisparador = self, idLlama = 0.randomUpTo(10000) ,color = colorFuego)
       llama.iniciar()
       puedeDisparar = false
       self.recarga()  

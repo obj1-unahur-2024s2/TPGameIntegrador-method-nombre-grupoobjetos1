@@ -77,7 +77,7 @@ class Enemigo{
     return -1
   } 
   method disparar() {
-    const llama = new Llama(personajeDisparador = self, idLlama = (0..10000).anyOne(), color=colorFuego)
+    const llama = new Llama(personajeDisparador = self, idLlama = 0.randomUpTo(10000), color=colorFuego)
     llama.iniciar()
   }
   method posicionFinal() = 1 
