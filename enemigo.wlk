@@ -1,3 +1,4 @@
+import main.*
 import jugador.*
 import disparo.*
 
@@ -36,14 +37,22 @@ class Enemigo{
         game.say(self, "me quedan " + vida.toString() + " vidas")
       }
       else{
-        const exp = new Explosion(pos = self.position()) 
-        exp.iniciar()
-        game.removeVisual(self)
-        game.removeTickEvent("disparar abajo"+id.toString())
-        game.removeTickEvent("movimiento"+id.toString())
+        self.morir()
       }
     }
   } 
+
+  method morir() {
+    const exp = new Explosion(pos = self.position()) 
+    exp.iniciar()
+
+    game.removeVisual(self)
+    game.removeTickEvent("disparar abajo"+id.toString())
+    game.removeTickEvent("movimiento"+id.toString())
+
+    main.levelManager.eliminarEnemigoDeContador()
+  }
+
   method irYVolver() {
     self.controlarDireccion()
     self.mover(direccion)

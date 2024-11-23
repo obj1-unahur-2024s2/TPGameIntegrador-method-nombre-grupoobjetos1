@@ -7,50 +7,71 @@ program Main {
   game.width(13)
   game.height(13)
 
-  nivel2.iniciar()
+  nivel1.iniciar()
 
   game.start()
 } 
 
+object levelManager {
+  var property nivelActual = nivel1
+  var property enemigosVivos = 0
+  method eliminarEnemigoDeContador() {
+    enemigosVivos -= 1
+    self.checkEnemigosVivos()
+  }
+  method checkEnemigosVivos() {
+    if(enemigosVivos == 0){
+      game.say(jugador, "Nivel terminado")
+      nivelActual.siguiente().iniciar()
+    }
+  }
+}
 
 object nivel1 {
+  method siguiente() = nivel2
   method iniciar() {
+    levelManager.nivelActual(self)
     game.addVisual(jugador)
     jugador.controlar()
 
     const enemigo1 = new Enemigo(id = 1, position = game.at(6, 12), vida = 3, velocidad = 500)
     enemigo1.iniciar()
 
+    levelManager.enemigosVivos(1)
+
     game.boardGround("Background_forest.png")
   }
 }
 
 object nivel2 {
+  method siguiente() = nivel3
   method iniciar() {
-    game.addVisual(jugador)
-    jugador.controlar()
+    levelManager.nivelActual(self)
 
     const enemigo2 = new Enemigo(id = 825, position = game.at(6, 12), vida = 3, velocidad = 300)
     enemigo2.iniciar()
-    const enemigo3 = new Enemigo(id = 3, position = game.at(6, 11), vida = 3, velocidad = 200)
-    enemigo3.iniciar()
 
-    game.boardGround("Background_forest.png")
+    levelManager.enemigosVivos(1)
   }
 }
 
 object nivel3 {
+  method siguiente() = pantallaFinal
   method iniciar() {
-    game.addVisual(jugador)
-    jugador.controlar()
+    levelManager.nivelActual(self)
 
-    const enemigo4 = new Enemigo(id = 100, position = game.at(6, 12), vida = 3, velocidad = 100)
+    const enemigo4 = new Enemigo(id = 333, position = game.at(6, 12), vida = 3, velocidad = 300)
     enemigo4.iniciar()
-    const enemigo5 = new Enemigo(id = 1000, position = game.at(6, 11), vida = 3, velocidad = 200)
+    
+    const enemigo5 = new Enemigo(id = 444, position = game.at(6, 10), vida = 3, velocidad = 200)
     enemigo5.iniciar()
-    const enemigo6 = new Enemigo(id = 10000, position = game.at(6, 10), vida = 3, velocidad = 300)
-    enemigo6.iniciar()
 
-    game.boardGround("Background_forest.png")
+    levelManager.enemigosVivos(2)
+  }
+}
+
+object pantallaFinal{
+  method iniciar() {
+    game.say(jugador, "Ganaste!")
   }
 }
