@@ -22,7 +22,7 @@ object levelManager {
   method checkEnemigosVivos() {
     if(enemigosVivos == 0){
       game.say(jugador, "Nivel terminado")
-      nivelActual.siguiente().iniciar()
+      game.schedule(3000, {nivelActual.siguiente().iniciar()})
     }
   }
 }
@@ -48,7 +48,7 @@ object nivel2 {
   method iniciar() {
     levelManager.nivelActual(self)
 
-    const enemigo2 = new Enemigo(id = 825, position = game.at(6, 12), vida = 3, velocidad = 300)
+    const enemigo2 = new Enemigo(id = 825, position = game.at(0, 12), vida = 3, velocidad = 300)
     enemigo2.iniciar()
 
     levelManager.enemigosVivos(1)
@@ -60,10 +60,10 @@ object nivel3 {
   method iniciar() {
     levelManager.nivelActual(self)
 
-    const enemigo4 = new Enemigo(id = 333, position = game.at(6, 12), vida = 3, velocidad = 300)
+    const enemigo4 = new Enemigo(id = 333, position = game.at(0, 12), vida = 3, velocidad = 300)
     enemigo4.iniciar()
     
-    const enemigo5 = new Enemigo(id = 444, position = game.at(6, 10), vida = 3, velocidad = 200)
+    const enemigo5 = new Enemigo(id = 444, position = game.at(11, 10), vida = 3, velocidad = 300)
     enemigo5.iniciar()
 
     levelManager.enemigosVivos(2)

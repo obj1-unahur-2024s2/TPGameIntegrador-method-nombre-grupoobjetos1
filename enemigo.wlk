@@ -9,8 +9,6 @@ class Enemigo{
   const velocidad
   const cadenciaDisparo = 2000
   method velocidadDisparo() = 200
-
-  var llamasDisparadas = 0
   var direccion = izquierda
   var herido = "" 
   const colorFuego = "violeta"
@@ -79,8 +77,7 @@ class Enemigo{
     return -1
   } 
   method disparar() {
-    llamasDisparadas += 1
-    const llama = new Llama(personajeDisparador = self, idLlama = id * llamasDisparadas, color=colorFuego)
+    const llama = new Llama(personajeDisparador = self, idLlama = (0..10000).anyOne(), color=colorFuego)
     llama.iniciar()
   }
   method posicionFinal() = 1 

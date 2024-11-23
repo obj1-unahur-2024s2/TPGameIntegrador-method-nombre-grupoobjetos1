@@ -5,7 +5,6 @@ object jugador{
   var position = game.at(6, 1)
   var vidas = 3
   var puedeDisparar = true
-  var llamasDisparadas = 0
   const cadenciaDisparo = 1000
   method velocidadDisparo() = 100
   const colorFuego = "rojo"
@@ -25,8 +24,7 @@ object jugador{
  
   method disparar() {
     if(puedeDisparar){
-      llamasDisparadas += 1
-      const llama = new Llama(personajeDisparador = self, idLlama = llamasDisparadas,color = colorFuego)
+      const llama = new Llama(personajeDisparador = self, idLlama = (0..10000).anyOne() ,color = colorFuego)
       llama.iniciar()
       puedeDisparar = false
       self.recarga()  
