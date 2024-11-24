@@ -1,5 +1,7 @@
 class PowerUp{
   var property position
+  const image
+  method image() = image
   const vidaQueRecupera
 
   method iniciar(){

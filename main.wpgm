@@ -8,55 +8,10 @@ program Main {
   game.height(13)
 
   levelManager.nivelActual().iniciar()
-  game.boardGround(levelManager.nivelActual().background())
+  game.boardGround("Background_forest.png")
 
   game.start()
 } 
-
-object menuInicio{
-  method background() = "menu_inicio_placeholder.png"
-  var property haIniciado = false
-  method iniciar() {
-    game.boardGround(self.background())
-    pantallaGameOver.haIniciado(false)
-    levelManager.nivelActual(self)
-    self.esperarInput()
-  }
-  method esperarInput() {
-    keyboard.space().onPressDo({self.iniciarJuego()})
-  }
-  method iniciarJuego() {
-    if (not haIniciado){
-      haIniciado = true
-      nivel1.iniciar()
-    }
-  }
-
-}
-
-object pantallaFinal{
-  method iniciar() {
-    game.say(jugador, "Ganaste!")
-  }
-}
-
-object pantallaGameOver{
-  method background() = "menu_gameOver_placeholder.png"
-  var property haIniciado = false
-  method iniciar() {
-    levelManager.nivelActual(self)
-    game.clear()
-    self.esperarInput()
-    game.boardGround(self.background())
-  }
-  method esperarInput(){
-    if (not haIniciado){
-      haIniciado = true
-      menuInicio.haIniciado(false)
-      keyboard.space().onPressDo({menuInicio.iniciar()})
-    }
-  }
-}
 
 object levelManager {
   var property nivelActual = menuInicio
@@ -73,16 +28,71 @@ object levelManager {
   }
   method checkVidasJugador(){
     if (jugador.vidas() <= 0){
-      game.schedule(1000, {pantallaGameOver.iniciar()})
+      game.schedule(50, {pantallaGameOver.iniciar()})
+    }
+  }
+}
+
+object menuInicio{
+  var property haIniciado = false
+  method iniciar() {
+    game.removeVisual(imgpantallagameover)
+    game.removeVisual(imgpantallaganaste)
+    game.addVisual(imgpantallainicio)
+    pantallaGameOver.haIniciado(false)
+    levelManager.nivelActual(self)
+    self.esperarInput()
+  }
+  method esperarInput() {
+    keyboard.space().onPressDo({self.iniciarJuego()})
+  }
+  method iniciarJuego() {
+    if (not haIniciado){
+      haIniciado = true
+      nivel1.iniciar()
+      game.removeVisual(imgpantallainicio)
+    }
+  }
+
+}
+
+object pantallaFinal{
+  var property haIniciado = false
+  method iniciar() {
+    game.clear()
+    game.addVisual(imgpantallaganaste)
+    levelManager.nivelActual(self)
+    self.esperarInput()
+  }
+  method esperarInput(){
+    if (not haIniciado){
+      haIniciado = true
+      menuInicio.haIniciado(false)
+      keyboard.space().onPressDo({menuInicio.iniciar()})
+    }
+  }
+}
+
+object pantallaGameOver{
+  var property haIniciado = false
+  method iniciar() {
+    game.clear()
+    game.addVisual(imgpantallagameover)
+    levelManager.nivelActual(self)
+    self.esperarInput()
+  }
+  method esperarInput(){
+    if (not haIniciado){
+      haIniciado = true
+      menuInicio.haIniciado(false)
+      keyboard.space().onPressDo({menuInicio.iniciar()})
     }
   }
 }
 
 object nivel1 {
   method siguiente() = nivel2
-  method background() = "Background_forest.png"
   method iniciar() {
-    game.boardGround(self.background())
     jugador.vidas(3)
     levelManager.nivelActual(self)
     game.addVisual(jugador)
@@ -96,10 +106,8 @@ object nivel1 {
 }
 
 object nivel2 {
-  method background() = "Background_forest.png"
   method siguiente() = nivel3
   method iniciar() {
-    game.boardGround(self.background())
     levelManager.nivelActual(self)
 
     const enemigo2 = new Enemigo(id = 825, position = game.at(0, 12), vida = 3, velocidad = 300)
@@ -110,10 +118,8 @@ object nivel2 {
 }
 
 object nivel3 {
-  method background() = "Background_forest.png"
   method siguiente() = pantallaFinal
   method iniciar() {
-    game.boardGround(self.background())
     levelManager.nivelActual(self)
 
     const enemigo4 = new Enemigo(id = 333, position = game.at(0, 12), vida = 3, velocidad = 300)
@@ -124,4 +130,22 @@ object nivel3 {
 
     levelManager.enemigosVivos(2)
   }
+}
+
+object imgpantallainicio{
+  const position = game.origin()
+  method position() = position
+  method image() = "menu_inicio_placeholder.png"
+}
+
+object imgpantallagameover{
+  const position = game.origin()
+  method position() = position
+  method image() = "menu_gameOver_placeholder.png"
+}
+
+object imgpantallaganaste{
+  const position = game.origin()
+  method position() = position
+  method image() = "menu_ganaste_placeholder.png"
 }
