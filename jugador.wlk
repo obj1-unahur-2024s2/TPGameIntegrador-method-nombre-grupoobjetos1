@@ -39,11 +39,15 @@ object jugador{
     game.say(self, "Tengo " + vidas.toString() + " vidas")
     main.levelManager.checkVidasJugador()
   }
+  method consumirPowerUp(vidaQueRecupera, powerUp){
+    vidas += vidaQueRecupera
+    game.removeVisual(powerUp)
+  }
+
    method direccionDisparo(){
     return 1
  }
-  method posicionFinal() = 12  
-  method nombreEvento() = "disparar Aribba"
+
   method moverIzq() { position = position.left(1) }
   method moverDer() { position = position.right(1) }
 }

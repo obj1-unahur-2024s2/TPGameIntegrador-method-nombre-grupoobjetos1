@@ -28,5 +28,9 @@ class Llama {
         game.removeVisual(self)
     }
     method estaFueraDeLimites() = position.y() >= game.height() or position.y() <= 0
+
+    method consumirPowerUp(vidaQueRecupera, powerup) {
+      
+    }
 }
 
