@@ -133,15 +133,28 @@ object nivel3 {
 }
 
 object imgpantallainicio{
+  var frame = 1
   const position = game.origin()
   method position() = position
-  method image() = "menu_inicio_placeholder.png"
+  method image() = "menu_inicio"+self.cambiarframe()+".png"
+  method cambiarframe(){
+    game.schedule(1000, {self.cambiarImagen()})
+    return frame
+  }
+  method cambiarImagen() {
+    if(frame == 1){
+      frame = 2
+    }
+    else{
+      frame = 1
+    }
+  }
 }
 
 object imgpantallagameover{
   const position = game.origin()
   method position() = position
-  method image() = "menu_gameOver_placeholder.png"
+  method image() = "menu_gameOver.png"
 }
 
 object imgpantallaganaste{
