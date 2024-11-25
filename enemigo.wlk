@@ -14,7 +14,7 @@ class Enemigo{
   const colorFuego = "violeta"
 
   method position() = position
-  method image() = "skull"+ direccion +herido.toString()+".png"
+  method image() = "skull"+ direccion.toString() +herido.toString()+".png"
   method posInicialDisparo() = position.down(1) 
   method objetivo() = "jugador"
 

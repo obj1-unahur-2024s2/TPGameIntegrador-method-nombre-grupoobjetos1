@@ -1528,3 +1528,12 @@
 {"level":"info","message":"⌛ Validating personajes.wlk","timeElapsed":107,"timestamp":"2024-11-21T21:43:48.357Z"}
 {"level":"info","message":"⌛ Validating personajes.wlk","timeElapsed":107,"timestamp":"2024-11-21T21:43:49.303Z"}
 {"level":"info","message":"⌛ Validating personajes.wlk","timeElapsed":101,"timestamp":"2024-11-21T21:43:49.801Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":138,"timestamp":"2024-11-25T22:37:50.743Z"}
+{"level":"info","message":"onRequest - WORKSPACE_URI:file:///home/max/Documentos/TPGameIntegrador-method-nombre-grupoobjetos1","timestamp":"2024-11-25T22:37:50.750Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":131,"timestamp":"2024-11-25T22:37:50.882Z"}
+{"level":"info","message":"⌛ Validating main.wpgm","timeElapsed":133,"timestamp":"2024-11-25T22:37:51.334Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":156,"timestamp":"2024-11-25T22:37:51.490Z"}
+{"level":"info","message":"⌛ Validating disparo.wlk","timeElapsed":113,"timestamp":"2024-11-25T22:37:51.614Z"}
+{"level":"info","message":"⌛ Validating enemigo.wlk","timeElapsed":108,"timestamp":"2024-11-25T22:37:51.722Z"}
+{"level":"info","message":"⌛ Validating powerups.wlk","timeElapsed":105,"timestamp":"2024-11-25T22:37:51.827Z"}
+{"level":"info","message":"⌛ Validating jugador.wlk","timeElapsed":110,"timestamp":"2024-11-25T22:37:51.938Z"}
