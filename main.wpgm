@@ -98,7 +98,7 @@ object nivel1 {
     game.addVisual(jugador)
     jugador.controlar()
 
-    const enemigo1 = new Enemigo(id = 1, position = game.at(6, 12), vida = 3, velocidad = 500)
+    const enemigo1 = new Enemigo(id = 1, position = game.at(6, 12), vida = 1, velocidad = 500)
     enemigo1.iniciar()
 
     levelManager.enemigosVivos(1)
@@ -158,7 +158,20 @@ object imgpantallagameover{
 }
 
 object imgpantallaganaste{
+  var frame = 1 
   const position = game.origin()
   method position() = position
-  method image() = "menu_ganaste_placeholder.png"
+  method image() = "menu_ganaste"+self.cambiarframe()+".png"
+  method cambiarframe(){
+    game.schedule(1000, {self.cambiarImagen()})
+    return frame
+  }
+  method cambiarImagen() {
+    if(frame == 1){
+      frame = 2
+    }
+    else{
+      frame = 1
+    }
+  }
 }
