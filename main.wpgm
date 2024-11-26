@@ -2,6 +2,8 @@ import disparo.*
 import jugador.*
 import enemigo.*
 import wollok.game.*
+import niveles.*
+import menus.*
 
 program Main {
   game.width(13)
@@ -16,162 +18,22 @@ program Main {
 object levelManager {
   var property nivelActual = menuInicio
   var property enemigosVivos = 0
+
   method eliminarEnemigoDeContador() {
     enemigosVivos -= 1
     self.checkEnemigosVivos()
   }
+
   method checkEnemigosVivos() {
     if(enemigosVivos == 0){
       game.say(jugador, "Nivel terminado")
       game.schedule(3000, {nivelActual.siguiente().iniciar()})
     }
   }
+
   method checkVidasJugador(){
     if (jugador.vidas() <= 0){
       game.schedule(50, {pantallaGameOver.iniciar()})
-    }
-  }
-}
-
-object menuInicio{
-  var property haIniciado = false
-  method iniciar() {
-    game.removeVisual(imgpantallagameover)
-    game.removeVisual(imgpantallaganaste)
-    game.addVisual(imgpantallainicio)
-    pantallaGameOver.haIniciado(false)
-    levelManager.nivelActual(self)
-    self.esperarInput()
-  }
-  method esperarInput() {
-    keyboard.space().onPressDo({self.iniciarJuego()})
-  }
-  method iniciarJuego() {
-    if (not haIniciado){
-      haIniciado = true
-      nivel1.iniciar()
-      game.removeVisual(imgpantallainicio)
-    }
-  }
-
-}
-
-object pantallaFinal{
-  var property haIniciado = false
-  method iniciar() {
-    game.clear()
-    game.addVisual(imgpantallaganaste)
-    levelManager.nivelActual(self)
-    self.esperarInput()
-  }
-  method esperarInput(){
-    if (not haIniciado){
-      haIniciado = true
-      menuInicio.haIniciado(false)
-      keyboard.space().onPressDo({menuInicio.iniciar()})
-    }
-  }
-}
-
-object pantallaGameOver{
-  var property haIniciado = false
-  method iniciar() {
-    game.clear()
-    game.addVisual(imgpantallagameover)
-    levelManager.nivelActual(self)
-    self.esperarInput()
-  }
-  method esperarInput(){
-    if (not haIniciado){
-      haIniciado = true
-      menuInicio.haIniciado(false)
-      keyboard.space().onPressDo({menuInicio.iniciar()})
-    }
-  }
-}
-
-object nivel1 {
-  method siguiente() = nivel2
-  method iniciar() {
-    jugador.vidas(3)
-    levelManager.nivelActual(self)
-    game.addVisual(jugador)
-    jugador.controlar()
-
-    const enemigo1 = new Enemigo(id = 1, position = game.at(6, 12), vida = 1, velocidad = 500)
-    enemigo1.iniciar()
-
-    levelManager.enemigosVivos(1)
-  }
-}
-
-object nivel2 {
-  method siguiente() = nivel3
-  method iniciar() {
-    levelManager.nivelActual(self)
-
-    const enemigo2 = new Enemigo(id = 825, position = game.at(0, 12), vida = 3, velocidad = 300)
-    enemigo2.iniciar()
-
-    levelManager.enemigosVivos(1)
-  }
-}
-
-object nivel3 {
-  method siguiente() = pantallaFinal
-  method iniciar() {
-    levelManager.nivelActual(self)
-
-    const enemigo4 = new Enemigo(id = 333, position = game.at(0, 12), vida = 3, velocidad = 300)
-    enemigo4.iniciar()
-    
-    const enemigo5 = new Enemigo(id = 444, position = game.at(11, 10), vida = 3, velocidad = 300)
-    enemigo5.iniciar()
-
-    levelManager.enemigosVivos(2)
-  }
-}
-
-object imgpantallainicio{
-  var frame = 1
-  const position = game.origin()
-  method position() = position
-  method image() = "menu_inicio"+self.cambiarframe()+".png"
-  method cambiarframe(){
-    game.schedule(1000, {self.cambiarImagen()})
-    return frame
-  }
-  method cambiarImagen() {
-    if(frame == 1){
-      frame = 2
-    }
-    else{
-      frame = 1
-    }
-  }
-}
-
-object imgpantallagameover{
-  const position = game.origin()
-  method position() = position
-  method image() = "menu_gameOver.png"
-}
-
-object imgpantallaganaste{
-  var frame = 1 
-  const position = game.origin()
-  method position() = position
-  method image() = "menu_ganaste"+self.cambiarframe()+".png"
-  method cambiarframe(){
-    game.schedule(1000, {self.cambiarImagen()})
-    return frame
-  }
-  method cambiarImagen() {
-    if(frame == 1){
-      frame = 2
-    }
-    else{
-      frame = 1
     }
   }
 }
