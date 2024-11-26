@@ -41,9 +41,9 @@ object jugador{
     game.say(self, "Tengo " + vidas.toString() + " vida")
     main.levelManager.checkVidasJugador()
   }
-  method consumirPowerUp(vidaQueRecupera, powerUp){
-    vidas += vidaQueRecupera
-    game.removeVisual(powerUp)
+  method consumirPowerUp(powerUp){
+    vidas += powerUp.vidaQueRecupera()
+    powerUp.desaparecer()
   }
 
    method direccionDisparo(){

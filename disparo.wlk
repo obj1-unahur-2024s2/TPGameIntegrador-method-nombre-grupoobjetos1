@@ -29,8 +29,9 @@ class Llama {
     }
     method estaFueraDeLimites() = position.y() >= game.height() or position.y() <= 0
 
-    method consumirPowerUp(vidaQueRecupera, powerup) {
-      
+    method consumirPowerUp(powerup) {
+        game.removeTickEvent("llama"+idLlama.toString())
+        game.removeVisual(self)
     }
 }
 
