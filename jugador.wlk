@@ -9,7 +9,7 @@ object jugador{
   var herido = false
   const cadenciaDisparo = 1000
   method velocidadDisparo() = 100
-  const colorFuego = "rojo"
+  method colorFuego() = "rojo"
 
   method objetivo() = "enemigo"
   method position() = position
@@ -19,17 +19,20 @@ object jugador{
   method recargaNombre() = if(puedeDisparar)""else "Recarga"   
   
   method herida() = if(herido)"herido"else""
-  method controlar(){
-    keyboard.left().onPressDo{if(self.position().x() != 0){self.moverIzq()}}
-    keyboard.right().onPressDo{if(self.position().x() != 12){self.moverDer()}}
-    keyboard.up().onPressDo{if(puedeDisparar){self.disparar()}}
+  
+  method configurarControles(){
+    keyboard.left().onPressDo{self.moverIzq()}
+    keyboard.right().onPressDo{self.moverDer()}
+    keyboard.up().onPressDo{self.disparar()}
   }
  
   method disparar() {
-    const llama = new Llama(personajeDisparador = self, idLlama = 0.randomUpTo(10000) ,color = colorFuego)
-    llama.iniciar()
-    puedeDisparar = false
-    self.recarga()  
+    if(puedeDisparar){
+      const llama = new Llama(personajeDisparador = self)
+      llama.iniciar()
+      puedeDisparar = false
+      self.recarga()  
+    }
   }
   method recarga() {
     game.schedule(cadenciaDisparo,{puedeDisparar = true})
@@ -50,8 +53,17 @@ object jugador{
     return 1
  }
 
-  method moverIzq() { position = position.left(1) }
-  method moverDer() { position = position.right(1) }
+  method moverIzq(){
+    if(self.position().x() > 0){
+      position = position.left(1)
+    }
+  }
+
+  method moverDer(){
+    if(self.position().x() < game.width()-1){
+      position = position.right(1)
+    }  
+  }
 }
 
 object derecha{

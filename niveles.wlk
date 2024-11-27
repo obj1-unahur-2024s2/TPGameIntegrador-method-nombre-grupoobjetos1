@@ -11,7 +11,7 @@ object nivel1 {
     jugador.vidas(3)
     levelManager.nivelActual(self)
     game.addVisual(jugador)
-    jugador.controlar()
+    jugador.configurarControles()
 
     const enemigo1 = new Enemigo(id = 1, position = game.at(6, 12), vida = 1, velocidad = 500)
     enemigo1.iniciar()

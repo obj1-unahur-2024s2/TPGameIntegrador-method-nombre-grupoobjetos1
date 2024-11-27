@@ -11,7 +11,7 @@ class Enemigo{
   method velocidadDisparo() = 200
   var direccion = izquierda
   var herido = "" 
-  const colorFuego = "violeta"
+  method colorFuego() = "violeta"
 
   method position() = position
   method image() = "skull"+direccion.toString()+herido.toString()+".png"
@@ -77,7 +77,7 @@ class Enemigo{
     return -1
   } 
   method disparar() {
-    const llama = new Llama(personajeDisparador = self, idLlama = 0.randomUpTo(10000), color=colorFuego)
+    const llama = new Llama(personajeDisparador = self)
     llama.iniciar()
   }
   method posicionFinal() = 1 

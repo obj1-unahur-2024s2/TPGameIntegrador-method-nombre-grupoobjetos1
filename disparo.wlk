@@ -1,10 +1,9 @@
 class Llama {
     const personajeDisparador  
-    const idLlama
+    const idLlama = 0.randomUpTo(1000000)
     method idLlama() = idLlama
     var position = personajeDisparador.posInicialDisparo()
-    const color
-    method image() = "Fuego"+color.toString()+".png"
+    method image() = "Fuego"+personajeDisparador.colorFuego().toString()+".png"
     method position() = position   
     method iniciar() {
         game.addVisual(self)
