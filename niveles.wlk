@@ -17,6 +17,8 @@ object nivel1 {
     enemigo1.iniciar()
 
     levelManager.enemigosVivos(1)
+
+    keyboard.space().onPressDo({})
   }
 }
 
@@ -25,7 +27,7 @@ object nivel2 {
   method iniciar() {
     levelManager.nivelActual(self)
 
-    const enemigo2 = new Enemigo(id = 825, position = game.at(0, 12), vida = 2, velocidad = 300)
+    const enemigo2 = new Enemigo(id = 825, position = game.at(1, 12), vida = 2, velocidad = 300)
     enemigo2.iniciar()
 
     const enemigo3 = new Enemigo(id = 999, position = game.at(11, 11), vida = 2, velocidad = 300)
@@ -40,7 +42,7 @@ object nivel3 {
   method iniciar() {
     levelManager.nivelActual(self)
 
-    const enemigo4 = new Enemigo(id = 333, position = game.at(0, 12), vida = 2, velocidad = 300)
+    const enemigo4 = new Enemigo(id = 333, position = game.at(1, 12), vida = 2, velocidad = 300)
     enemigo4.iniciar()
     
     const enemigo5 = new Enemigo(id = 444, position = game.at(11, 10), vida = 2, velocidad = 300)
